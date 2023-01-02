@@ -147,6 +147,7 @@ hr {
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
+  user-select: none;
   -ms-touch-action: none;
   touch-action: none;
   background: #bbada0;
@@ -351,7 +352,7 @@ hr {
   margin-bottom: 0; }
 
 .restart-button {
-  display: inline-block;
+  display: block;
   background: #8f7a66;
   border-radius: 3px;
   padding: 0 20px;
@@ -413,6 +414,7 @@ hr {
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
+    user-select: none;
     -ms-touch-action: none;
     touch-action: none;
     background: #bbada0;
