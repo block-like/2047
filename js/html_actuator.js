@@ -52,14 +52,16 @@ HTMLActuator.prototype.addTile = function (tile) {
   var wrapper   = document.createElement("div");
   var inner     = document.createElement("div");
   var position  = tile.previousPosition || { x: tile.x, y: tile.y };
-  var positionClass = this.positionClass(position);
 
   // We can't use classlist because it somehow glitches when replacing classes
-  var classes = ["tile", "tile-" + tile.value, positionClass];
+  var classes = ["tile", "tile-" + tile.value];
 
-  if (tile.value > 2048) classes.push("tile-super");
+  if (tile.value > modData.styleLimit) classes.push("tile-super");
 
   this.applyClasses(wrapper, classes);
+
+  wrapper.style.setProperty("--tile-position-x", position.x)
+  wrapper.style.setProperty("--tile-position-y", position.y)
 
   inner.classList.add("tile-inner");
   inner.textContent = tile.value;
@@ -67,8 +69,8 @@ HTMLActuator.prototype.addTile = function (tile) {
   if (tile.previousPosition) {
     // Make sure that the tile gets rendered in the previous position first
     window.requestAnimationFrame(function () {
-      classes[2] = self.positionClass({ x: tile.x, y: tile.y });
-      self.applyClasses(wrapper, classes); // Update the position
+      wrapper.style.setProperty("--tile-position-x", tile.x)
+      wrapper.style.setProperty("--tile-position-y", tile.y)
     });
   } else if (tile.mergedFrom) {
     classes.push("tile-merged");
@@ -98,10 +100,15 @@ HTMLActuator.prototype.normalizePosition = function (position) {
   return { x: position.x + 1, y: position.y + 1 };
 };
 
-HTMLActuator.prototype.positionClass = function (position) {
+HTMLActuator.prototype.positionClass = function (position) { //deprecated!!
   position = this.normalizePosition(position);
   return "tile-position-" + position.x + "-" + position.y;
 };
+
+HTMLActuator.prototype.positionStyle = function (position) {
+  position = this.normalizePosition(position)
+  return `--tile-position-x: ${position.x}; --tile-position-y: ${position.y};`
+}
 
 HTMLActuator.prototype.updateScore = function (score) {
   this.clearContainer(this.scoreContainer);
