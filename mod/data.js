@@ -15,5 +15,5 @@ const modData = {
 //extra stuff
 
 document.title = modData.name
-document.getElementById('game-name') = modData.name
-document.getElementById('game-intro-tile') = `${modData.winTile.toString()} tile!`
+document.getElementById('game-name').innerHTML = modData.name
+document.getElementById('game-intro-tile').innerHTML = `${modData.winTile.toString()} tile!`
