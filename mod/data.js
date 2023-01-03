@@ -9,7 +9,8 @@ const modData = {
             return 4096
         }
         return currentNumber*2
-    }
+    },
+    spawnFunction: () => {Math.random() < 0.9 ? 2 : 4}
 }
 
 //extra stuff
